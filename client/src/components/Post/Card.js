@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { isEmpty } from "../Utils";
+import FollowHandler from "../Profil/FollowHandler";
+import { dateParser, isEmpty } from "../Utils";
 
 const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,15 +21,37 @@ const Card = ({ post }) => {
           <div className="card-left">
             <img
               src={
-                !isEmpty(
-                  usersData[0] &&
-                    usersData.map((user) => {
-                      if (user.id === post.posterid) return user.picture;
-                    }).join('')
-                )
+                !isEmpty(usersData[0]) &&
+                usersData
+                  .map((user) => {
+                    if (user._id === post.posterId) return user.picture;
+                  })
+                  .join("")
               }
-              alt=""
+              alt="poster-pic"
             />
+          </div>
+          <div className="card-right">
+            <div className="card-header">
+              <div className="pseudo">
+                <h3>
+                  {!isEmpty(usersData[0]) &&
+                    usersData
+                      .map((user) => {
+                        if (user._id === post.posterId) return user.pseudo;
+                      })
+                      .join("")}
+                </h3>
+                {post.posterId !== userData._id && (
+                  <FollowHandler idToFollow={post.posterId} type={"card"} />
+                )}
+              </div>
+              <span>{dateParser(post.createdAt)}</span>
+            </div>
+            <p>{post.message}</p>
+            {post.picture && (
+              <img src={post.picture} alt="card-pic" className="card-pic" />
+            )}
           </div>
         </>
       )}
