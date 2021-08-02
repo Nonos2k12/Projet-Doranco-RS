@@ -4,6 +4,7 @@ import LeftNav from '../components/LeftNav';
 import NewPostForm from '../components/Post/NewPostForm';
 import Thread from '../components/Thread';
 import Log from '../components/Log';
+import Trends from '../components/Trends';
 
 const Home = () => {
   const uid = useContext(UidContext);
@@ -16,6 +17,13 @@ const Home = () => {
           {uid ? <NewPostForm /> : <Log signin={true} signup={false} />}
         </div>
         <Thread />
+      </div>
+      <div className="right-side">
+        <div className="right-side-container">
+          <div className="wrapper">
+            <Trends />
+          </div>
+        </div>
       </div>
     </div>
   );
