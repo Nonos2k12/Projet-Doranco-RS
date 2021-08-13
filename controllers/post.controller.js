@@ -41,7 +41,7 @@ module.exports.createPost = async (req, res) => {
     );
   }
 
-  const newPost = new PostModel({
+  const newPost = new postModel({
     posterId: req.body.posterId,
     message: req.body.message,
     picture: req.file !== null ? "./uploads/posts/" + fileName : "",

@@ -20,21 +20,22 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Body-parser nous permet de traiter les données qui transite.
+// Cookie-parser nous permet de lire le cookie et de travailler avec.
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-//jwt
+// JWT
 app.get("*", checkUser);
 app.get("/jwtid", requireAuth, (req, res) => {
   res.status(200).send(res.locals.user._id);
 });
 
-//routes
+// Routes
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 
-//server
+// Server
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
 });
