@@ -4,7 +4,7 @@ const { signUpErrors, signInErrors } = require("../utils/errors.utils");
 
 // Ce controller contient les méthodes liées à l'authentification de l'utilisateur.
 
-const maxAge = 3 * 24 * 60 * 60 * 1000;
+const maxAge = 3 * 24 * 60 * 60 * 1000; // Le token est valide 3 jours.
 
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.TOKEN_SECRET, {
@@ -14,7 +14,7 @@ const createToken = (id) => {
 
 module.exports.signUp = async (req, res) => {
   const { pseudo, email, password } = req.body;
-  // Les données que l'on envoie à la BDD lors d'un POST (destructurés).
+  // Les données que l'on envoie à la BDD lors d'un POST (destructurées).
 
   try {
     const user = await UserModel.create({ pseudo, email, password });

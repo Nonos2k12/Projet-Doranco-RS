@@ -47,10 +47,12 @@ module.exports.updateUser = async (req, res) => {
 module.exports.deleteUser = async (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
+  // Si l'id passé en paramètre est inconnu on renvoie une erreur.
 
   try {
     await UserModel.remove({ _id: req.params.id }).exec();
     res.status(200).json({ message: "Successfully deleted." });
+    // Si il n'y a pas d'erreur, on renvoie un message informant de la suppression de l'utilisateur, sinon on renvoie une erreur.
   } catch (err) {
     return res.status(500).json({ message: err });
   }
@@ -80,7 +82,6 @@ module.exports.follow = async (req, res) => {
       { $addToSet: { followers: req.params.id } },
       { new: true, upsert: true },
       (err, docs) => {
-        //if (!err) res.status(201).json(docs);
         if (err) return res.status(400).json(err);
       }
     );
@@ -112,7 +113,6 @@ module.exports.unfollow = async (req, res) => {
       { $pull: { followers: req.params.id } },
       { new: true, upsert: true },
       (err, docs) => {
-        //if (!err) res.status(201).json(docs);
         if (err) return res.status(400).json(err);
       }
     );

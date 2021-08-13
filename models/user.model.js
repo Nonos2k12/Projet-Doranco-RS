@@ -58,6 +58,7 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+// Ici on compare le password à l'email qui nous est passé à l'aide de bcrypt.
 userSchema.statics.login = async function (email, password) {
   const user = await this.findOne({ email });
   if (user) {
