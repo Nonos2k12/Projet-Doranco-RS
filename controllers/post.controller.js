@@ -11,7 +11,7 @@ module.exports.readPost = (req, res) => {
   PostModel.find((err, docs) => {
     if (!err) res.send(docs);
     else console.log("Error to get data : " + err);
-  }).sort({ createdAt: -1 });
+  }).sort({ createdAt: -1 }); // Ici on fait en sorte que les post s'affichent du plus récent au plus ancien.
 };
 
 module.exports.createPost = async (req, res) => {
@@ -59,7 +59,7 @@ module.exports.createPost = async (req, res) => {
 };
 
 module.exports.updatePost = (req, res) => {
-  // On commence par vérifier la validité de l'id.
+  // On commence par vérifier la validité de l'id de l'utilisateur.
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
@@ -81,7 +81,7 @@ module.exports.updatePost = (req, res) => {
 };
 
 module.exports.deletePost = (req, res) => {
-  // On commence par vérifier la validité de l'id.
+  // On commence par vérifier la validité de l'id de l'utilisateur.
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
@@ -92,7 +92,7 @@ module.exports.deletePost = (req, res) => {
 };
 
 module.exports.likePost = async (req, res) => {
-  // On commence par vérifier la validité de l'id.
+  // On commence par vérifier la validité de l'id de l'utilisateur.
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
@@ -124,7 +124,7 @@ module.exports.likePost = async (req, res) => {
 };
 
 module.exports.unlikePost = async (req, res) => {
-  // On commence par vérifier la validité de l'id.
+  // On commence par vérifier la validité de l'id de l'utilisateur.
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
@@ -156,7 +156,7 @@ module.exports.unlikePost = async (req, res) => {
 };
 
 module.exports.commentPost = (req, res) => {
-  // On commence par vérifier la validité de l'id.
+  // On commence par vérifier la validité de l'id de l'utilisateur.
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
@@ -186,16 +186,18 @@ module.exports.commentPost = (req, res) => {
 };
 
 module.exports.editCommentPost = (req, res) => {
-  // On commence par vérifier la validité de l'id.
+  // On commence par vérifier la validité de l'id de l'utilisateur.
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
   try {
+    // On cherche l'id du comment à éditer, si on le trouve : theComment = comment à éditer.
     return PostModel.findById(req.params.id, (err, docs) => {
       const theComment = docs.comments.find((comment) =>
         comment._id.equals(req.body.commentId)
       );
 
+      // Si on ne le trouve pas, on renvoie une erreur, sinon theComment.text devient le nouveau text du commentaire (update)
       if (!theComment) return res.status(404).send("Comment not found");
       theComment.text = req.body.text;
 
@@ -210,11 +212,12 @@ module.exports.editCommentPost = (req, res) => {
 };
 
 module.exports.deleteCommentPost = (req, res) => {
-  // On commence par vérifier la validité de l'id.
+  // On commence par vérifier la validité de l'id de l'utilisateur.
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
   try {
+    // On pointe le post dans lequel se trouve le comment à supprimer puis on supprime le comment dont l'id est passé dans le "corps" de la requête.
     return PostModel.findByIdAndUpdate(
       req.params.id,
       {

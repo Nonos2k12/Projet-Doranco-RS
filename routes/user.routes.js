@@ -7,7 +7,7 @@ const upload = multer();
 
 //Ici on définit toutes les routes (path) grâce à Express. Chaque route fait appelle à une fonction contenue dans un des controller.
 
-//auth
+//authentication
 router.post("/register", authController.signUp);
 router.post("/login", authController.signIn);
 router.get("/logout", authController.logout);

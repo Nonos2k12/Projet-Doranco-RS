@@ -6,6 +6,7 @@ const pipeline = promisify(require("stream").pipeline);
 
 module.exports.uploadProfil = async (req, res) => {
   try {
+    // On vérifie le format de l'image que l'utilisateur veut upload, si ce n'est pas un png, jpg ou jpeg on jette une erreur. On fait la même chose pour le poids de l'image ensuite.
     if (
       req.file.detectedMimeType !== "image/jpg" &&
       req.file.detectedMimeType !== "image/png" &&
@@ -19,7 +20,7 @@ module.exports.uploadProfil = async (req, res) => {
     return res.status(201).json({ errors });
   }
 
-  const fileName = req.body.name + ".jpg";
+  const fileName = req.body.name + ".jpg"; // La nouvelle photo de l'utilisateur "écrase" l'ancienne ce qui évite le sur-stockage.
 
   await pipeline(
     req.file.stream,
@@ -29,16 +30,16 @@ module.exports.uploadProfil = async (req, res) => {
   );
 
   try {
-      await UserModel.findByIdAndUpdate(
-          req.body.userId,
-          { $set : {picture: "./uploads/profil/" + fileName}},
-          { new: true, upsert: true, setDefaultsOnInsert: true},
-          (err, docs) => {
-              if (!err) return res.send(docs);
-              else return res.status(500).send({ message: err })
-          }
-      );
+    await UserModel.findByIdAndUpdate(
+      req.body.userId,
+      { $set: { picture: "./uploads/profil/" + fileName } },
+      { new: true, upsert: true, setDefaultsOnInsert: true },
+      (err, docs) => {
+        if (!err) return res.send(docs);
+        else return res.status(500).send({ message: err });
+      }
+    );
   } catch (err) {
-      return res.status(500).send({ message: err });
+    return res.status(500).send({ message: err });
   }
 };
