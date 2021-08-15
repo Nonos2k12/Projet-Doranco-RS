@@ -59,12 +59,15 @@ module.exports.createPost = async (req, res) => {
 };
 
 module.exports.updatePost = (req, res) => {
+  // On commence par vérifier la validité de l'id.
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
   const updatedRecord = {
     message: req.body.message,
   };
+
+  // Ici on récupère le post initial, on le met à jour puis, si il n'y a pas d'erreur on renvoie le nouveau post.
 
   PostModel.findByIdAndUpdate(
     req.params.id,
@@ -78,6 +81,7 @@ module.exports.updatePost = (req, res) => {
 };
 
 module.exports.deletePost = (req, res) => {
+  // On commence par vérifier la validité de l'id.
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
@@ -88,6 +92,7 @@ module.exports.deletePost = (req, res) => {
 };
 
 module.exports.likePost = async (req, res) => {
+  // On commence par vérifier la validité de l'id.
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
@@ -95,7 +100,7 @@ module.exports.likePost = async (req, res) => {
     await PostModel.findByIdAndUpdate(
       req.params.id,
       {
-        $addToSet: { likers: req.body.id },
+        $addToSet: { likers: req.body.id }, // On ajoute l'id de l'utilisateur qui like le post dans le tableau likers du post en question.
       },
       { new: true },
       (err, docs) => {
@@ -105,7 +110,7 @@ module.exports.likePost = async (req, res) => {
     await UserModel.findByIdAndUpdate(
       req.body.id,
       {
-        $addToSet: { likes: req.params.id },
+        $addToSet: { likes: req.params.id }, // On ajoute l'id du post dans le tableau likes de l'utilisateur qui a liké.
       },
       { new: true },
       (err, docs) => {
@@ -119,6 +124,7 @@ module.exports.likePost = async (req, res) => {
 };
 
 module.exports.unlikePost = async (req, res) => {
+  // On commence par vérifier la validité de l'id.
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
@@ -126,7 +132,7 @@ module.exports.unlikePost = async (req, res) => {
     await PostModel.findByIdAndUpdate(
       req.params.id,
       {
-        $pull: { likers: req.body.id },
+        $pull: { likers: req.body.id }, //Logique inverse du post, on supprime l'id de l'utilisateur du tableau likers du post.
       },
       { new: true },
       (err, docs) => {
@@ -136,7 +142,7 @@ module.exports.unlikePost = async (req, res) => {
     await UserModel.findByIdAndUpdate(
       req.body.id,
       {
-        $pull: { likes: req.params.id },
+        $pull: { likes: req.params.id }, // On supprime l'id du post du tableau likes de l'utilisateur.
       },
       { new: true },
       (err, docs) => {
@@ -150,10 +156,12 @@ module.exports.unlikePost = async (req, res) => {
 };
 
 module.exports.commentPost = (req, res) => {
+  // On commence par vérifier la validité de l'id.
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
   try {
+    // On récupère l'id du post puis on ajoute le commentaire dans le tableau comments du post.
     return PostModel.findByIdAndUpdate(
       req.params.id,
       {
@@ -178,6 +186,7 @@ module.exports.commentPost = (req, res) => {
 };
 
 module.exports.editCommentPost = (req, res) => {
+  // On commence par vérifier la validité de l'id.
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
@@ -201,6 +210,7 @@ module.exports.editCommentPost = (req, res) => {
 };
 
 module.exports.deleteCommentPost = (req, res) => {
+  // On commence par vérifier la validité de l'id.
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
