@@ -17,6 +17,8 @@ module.exports.readPost = (req, res) => {
 module.exports.createPost = async (req, res) => {
   let fileName;
 
+  // Si le post contient une image, on vérifie le format de l'image que l'utilisateur veut upload, si ce n'est pas un png, jpg ou jpeg on jette une erreur. On fait la même chose pour le poids de l'image ensuite.
+
   if (req.file !== null) {
     try {
       if (
@@ -31,7 +33,7 @@ module.exports.createPost = async (req, res) => {
       const errors = uploadErrors(err);
       return res.status(201).json({ errors });
     }
-    fileName = req.body.posterId + Date.now() + ".jpg";
+    fileName = req.body.posterId + Date.now() + ".jpg"; // On renomme l'image avec l'id de l'utilisateur + Date.now. Grâce au timestamp on est sûr que l'image aura un nom unique. Peu importe le format de l'image envoyée par l'utilisateur on la convertit en jpg.
 
     await pipeline(
       req.file.stream,

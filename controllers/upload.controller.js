@@ -20,7 +20,7 @@ module.exports.uploadProfil = async (req, res) => {
     return res.status(201).json({ errors });
   }
 
-  const fileName = req.body.name + ".jpg"; // La nouvelle photo de l'utilisateur "écrase" l'ancienne ce qui évite le sur-stockage.
+  const fileName = req.body.name + ".jpg"; // La nouvelle photo de profil "écrase" l'ancienne ce qui évite le sur-stockage. Peu importe le format de l'image envoyée par l'utilisateur on la convertit en jpg.
 
   await pipeline(
     req.file.stream,
