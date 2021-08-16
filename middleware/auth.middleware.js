@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/user.model");
 
-// A chaque action de l'utilisateur on vérifie si on connait bien l'utilisateur.
+// A chaque action de l'utilisateur on vérifie si le token de l'utilisateur est valide.
 module.exports.checkUser = (req, res, next) => {
   const token = req.cookies.jwt;
   if (token) {
@@ -21,6 +21,7 @@ module.exports.checkUser = (req, res, next) => {
   }
 };
 
+// Ici on contrôle le token que l'utilisateur nous présente lors de l'authentification, si il est absent ou incorrect, on renvoie une erreur, sinon on donne accès à l'utilisateur.
 module.exports.requireAuth = (req, res, next) => {
   const token = req.cookies.jwt;
   if (token) {
@@ -28,7 +29,6 @@ module.exports.requireAuth = (req, res, next) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(decodedToken.id);
         next();
       }
     });

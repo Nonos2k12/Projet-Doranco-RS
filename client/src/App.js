@@ -9,17 +9,18 @@ const App = () => {
   const [uid, setUid] = useState(null);
   const dispatch = useDispatch();
 
+  // Avec ce useEffect on contrôle le token de l'utilisateur puis on stocke l'id de l'utilisateur
   useEffect(() => {
     const fetchToken = async () => {
       await axios({
-      method: "get",
-      url: `${process.env.REACT_APP_API_URL}jwtid`,
-      withCredentials: true
-    })
-    .then((res) => {
-      setUid(res.data);
-    })
-    .catch((err) => console.log("No token"))
+        method: "get",
+        url: `${process.env.REACT_APP_API_URL}jwtid`,
+        withCredentials: true,
+      })
+        .then((res) => {
+          setUid(res.data);
+        })
+        .catch((err) => console.log("No token"));
     };
     fetchToken();
 

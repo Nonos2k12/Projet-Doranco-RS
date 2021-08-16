@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
 
-const Log = ( props ) => {
+const Log = (props) => {
   const [signUpModal, setSignUpModal] = useState(props.signup);
   const [signInModal, setSignInModal] = useState(props.signin);
 
+  // Ici on affiche un modal différent selon si l'utilisateur veut se connecter (signIn) ou se créer un nouveau compte (signUp).
   const handleModals = (e) => {
     if (e.target.id === "register") {
       setSignInModal(false);

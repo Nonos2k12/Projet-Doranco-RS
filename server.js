@@ -9,6 +9,8 @@ const { checkUser, requireAuth } = require("./middleware/auth.middleware");
 const cors = require("cors");
 const app = express();
 
+// Avec cors on définit qui a le droit de faire des requêtes à notre site, quels types de requête, etc...
+
 const corsOptions = {
   origin: process.env.CLIENT_URL,
   credentials: true,
