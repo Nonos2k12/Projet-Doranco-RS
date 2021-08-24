@@ -5,6 +5,7 @@ import UpdateProfil from "../components/Profil/UpdateProfil";
 
 const Profil = () => {
   const uid = useContext(UidContext);
+  // Avec useContext on récupère la valeur de UidContext, la variable uid contient donc l'id de l'utilisateur si il est connecté. Si c'est le cas on affiche la page updateProfil sinon on renvoie l'utilisateur vers la page Log.
 
   return (
     <div className="profil-page">

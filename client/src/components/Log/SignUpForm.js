@@ -10,6 +10,7 @@ const SignUpForm = () => {
   const [controlPassword, setControlPassword] = useState("");
 
   const handleRegister = async (e) => {
+    // On commence par empêcher le rechargement de la page puis on gère les éventuelles erreurs lors de l'inscription de l'utilisateur.
     e.preventDefault();
     const terms = document.getElementById("terms");
     const pseudoError = document.querySelector(".pseudo.error");
@@ -20,6 +21,7 @@ const SignUpForm = () => {
     );
     const termsError = document.querySelector(".terms.error");
 
+    // A chaque fois qu'on relance le formulaire on injecte des string vides à passwordConfirmError et termsError sans quoi les messages d'erreurs précédents ne s'effaceraient pas.
     passwordConfirmError.innerHTML = "";
     termsError.innerHTML = "";
 
@@ -41,7 +43,6 @@ const SignUpForm = () => {
         },
       })
         .then((res) => {
-          console.log(res);
           if (res.data.errors) {
             pseudoError.innerHTML = res.data.errors.pseudo;
             emailError.innerHTML = res.data.errors.email;
