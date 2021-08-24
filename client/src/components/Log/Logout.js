@@ -9,7 +9,7 @@ const Logout = () => {
     }
   };
 
-  const logout = async () => {
+  const deconnect = async () => {
     await axios({
       method: "get",
       url: `${process.env.REACT_APP_API_URL}api/user/logout`,
@@ -18,10 +18,10 @@ const Logout = () => {
       .then(() => removeCookie("jwt"))
       .catch((err) => console.log(err));
 
-      window.location = "/";
+    window.location = "/";
   };
   return (
-    <li onClick={logout}>
+    <li onClick={deconnect}>
       <img src="./img/icons/logout.svg" alt="logout" />
     </li>
   );

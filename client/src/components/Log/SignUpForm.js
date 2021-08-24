@@ -48,7 +48,7 @@ const SignUpForm = () => {
             emailError.innerHTML = res.data.errors.email;
             passwordError.innerHTML = res.data.errors.password;
           } else {
-            setFormSubmit(true);
+            setFormSubmit(true); // Si il n'y a pas d'erreur lors de la création du nouveau compte alors on incite l'utilisateur à se connecter en lui affichant la modal de connection
           }
         })
         .catch((err) => console.log(err));
