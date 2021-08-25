@@ -4,13 +4,14 @@ import usersReducer from "./users.reducer";
 import postReducer from "./post.reducer";
 import errorReducer from "./error.reducer";
 import allPostsReducer from "./allPosts.reducer";
-import trendingReducer from './trending.reducer';
+import trendingReducer from "./trending.reducer";
 
+// On regroupe ici tous les reducers grâce à combineReducers.
 export default combineReducers({
-    userReducer,
-    usersReducer,
-    postReducer,
-    errorReducer,
-    allPostsReducer,
-    trendingReducer
+  userReducer,
+  usersReducer,
+  postReducer,
+  errorReducer,
+  allPostsReducer,
+  trendingReducer,
 });

@@ -7,6 +7,7 @@ import Logout from "./Log/Logout";
 const Navbar = () => {
   const uid = useContext(UidContext);
   const userData = useSelector((state) => state.userReducer);
+  // On récupère le state de l'utilisateur grâce au hook useSelector, cela nous permet ensuite d'afficher dynamiquement le nom de l'utilisateur dans la navbar.
 
   return (
     <nav>
@@ -34,7 +35,7 @@ const Navbar = () => {
             <li></li>
             <li>
               <NavLink exact to="/profil">
-                <img src="./img/icons/login.svg" alt="login"/>
+                <img src="./img/icons/login.svg" alt="login" />
               </NavLink>
             </li>
           </ul>

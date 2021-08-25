@@ -6,6 +6,7 @@ import {
   UPLOAD_PICTURE,
 } from "../actions/user.actions";
 
+// On initialise un "state" vide. On le fait ensuite évoluer selon les actions de l'utilisateur.
 const initialState = {};
 
 export default function userReducer(state = initialState, action) {
@@ -14,7 +15,7 @@ export default function userReducer(state = initialState, action) {
       return action.payload;
     case UPLOAD_PICTURE:
       return {
-        ...state,
+        ...state, // On récupère les données qui existe déjà sans les écraser avec le spread operator puis on modifie la picture avec action.payload.
         picture: action.payload,
       };
     case UPDATE_BIO:
@@ -30,7 +31,9 @@ export default function userReducer(state = initialState, action) {
     case UNFOLLOW_USER:
       return {
         ...state,
-        following: state.following.filter((id) => id !== action.payload.idToUnfollow),
+        following: state.following.filter(
+          (id) => id !== action.payload.idToUnfollow
+        ),
       };
     default:
       return state;

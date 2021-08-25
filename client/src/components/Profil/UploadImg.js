@@ -10,11 +10,11 @@ const UploadImg = () => {
   const handlePicture = (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("name", userData.pseudo);
+    data.append("name", userData.pseudo); // Le nom de l'image uploadée = pseudo de l'utilisateur.
     data.append("userId", userData._id);
     data.append("file", file);
 
-    dispatch(uploadPicture(data, userData._id));
+    dispatch(uploadPicture(data, userData._id)); // On déclenche une action pour mettre à jour le store.
   };
 
   return (

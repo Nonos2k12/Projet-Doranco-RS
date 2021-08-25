@@ -7,10 +7,9 @@ import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers";
 import { getUsers } from "./actions/users.actions";
-
-//dev tools
 import { getPosts } from "./actions/post.actions";
 
+// thunk nous permet de faire des requêtes asynchrones avec redux
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 store.dispatch(getUsers());

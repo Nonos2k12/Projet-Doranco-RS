@@ -9,7 +9,7 @@ const App = () => {
   const [uid, setUid] = useState(null);
   const dispatch = useDispatch();
 
-  // Avec cette fonction on contrôle le token de l'utilisateur puis on stocke l'id de l'utilisateur, à chaque fois que uid évolue on relance le useEffect.
+  // Avec cette fonction on contrôle le token de l'utilisateur puis on stocke l'id de l'utilisateur, à chaque fois que uid évolue (à chaque setUid) on relance le useEffect.
   useEffect(() => {
     const fetchToken = async () => {
       await axios({

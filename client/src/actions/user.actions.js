@@ -5,11 +5,11 @@ export const UPLOAD_PICTURE = "UPLOAD_PICTURE";
 export const UPDATE_BIO = "UPDATE_BIO";
 export const FOLLOW_USER = "FOLLOW_USER";
 export const UNFOLLOW_USER = "UNFOLLOW_USER";
-
 export const GET_USER_ERRORS = "GET_USER_ERRORS";
 
 export const getUser = (uid) => {
   return (dispatch) => {
+    // Avec dispatch on envoie les données au reducer pour qu'elles soient stockées dans le store.
     return axios
       .get(`${process.env.REACT_APP_API_URL}api/user/${uid}`)
       .then((res) => {
@@ -22,13 +22,16 @@ export const getUser = (uid) => {
 export const uploadPicture = (data, id) => {
   return (dispatch) => {
     return axios
-      .post(`${process.env.REACT_APP_API_URL}api/user/upload`, data)
+      .post(`${process.env.REACT_APP_API_URL}api/user/upload`, data) // On envoie les données à la BDD.
       .then((res) => {
-        return axios
-          .get(`${process.env.REACT_APP_API_URL}api/user/${id}`)
-          .then((res) => {
-            dispatch({ type: UPLOAD_PICTURE, payload: res.data.picture });
-          });
+        return (
+          axios
+            .get(`${process.env.REACT_APP_API_URL}api/user/${id}`)
+            // On récupère la réponse puis on la traite avec dispatch
+            .then((res) => {
+              dispatch({ type: UPLOAD_PICTURE, payload: res.data.picture });
+            })
+        );
       })
       .catch((err) => console.log(err));
   };
