@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const GET_USERS = "GET_USERS";
 
+// On récupère tous les utilsateurs puis on insère les données dans le store avec dispatch.
 export const getUsers = () => {
   return (dispatch) => {
     return axios

@@ -17,6 +17,7 @@ const UpdateProfil = () => {
   const [followersPopup, setFollowersPopup] = useState(false);
 
   const handleUpdate = () => {
+    // On met à jour la bio grâce à dispatch puis on remet setUpdateForm à false pour revenir à l'affichage initial de la page profil.
     dispatch(updateBio(userData._id, bio));
     setUpdateForm(false);
   };
@@ -80,7 +81,10 @@ const UpdateProfil = () => {
                         <img src={user.picture} alt="user-pic" />
                         <h4>{user.pseudo}</h4>
                         <div className="follow-handler">
-                        <FollowHandler idToFollow={user._id} type={'suggestion'}/>
+                          <FollowHandler
+                            idToFollow={user._id}
+                            type={"suggestion"}
+                          />
                         </div>
                       </li>
                     );
@@ -108,7 +112,10 @@ const UpdateProfil = () => {
                         <img src={user.picture} alt="user-pic" />
                         <h4>{user.pseudo}</h4>
                         <div className="follow-handler">
-                        <FollowHandler idToFollow={user._id} type={'suggestion'}/>
+                          <FollowHandler
+                            idToFollow={user._id}
+                            type={"suggestion"}
+                          />
                         </div>
                       </li>
                     );
