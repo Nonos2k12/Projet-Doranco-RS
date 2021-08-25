@@ -33,6 +33,7 @@ export const timestampParser = (num) => {
   return date.toString();
 };
 
+// La fonction retourne true ou false en fonction de si value est vide ou pas.
 export const isEmpty = (value) => {
   return (
     value === undefined ||

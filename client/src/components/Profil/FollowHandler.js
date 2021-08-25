@@ -18,6 +18,7 @@ const FollowHandler = ({ idToFollow, type }) => {
     setIsFollowed(false);
   };
 
+  // Si userData.following n'est pas vide et qu'il comporte l'idToFollow alors on propose à l'utilisateur de ne plus suivre ce user, dans le cas contraire on lui propose de le suivre.
   useEffect(() => {
     if (!isEmpty(userData.following)) {
       if (userData.following.includes(idToFollow)) {
@@ -30,14 +31,20 @@ const FollowHandler = ({ idToFollow, type }) => {
     <>
       {isFollowed && !isEmpty(userData) && (
         <span onClick={handleUnfollow}>
-          {type === "suggestion" && <button className="unfollow-btn">Abonné</button>}
-          {type === "card" && <img src="./img/icons/checked.svg" alt="checked"/>}
+          {type === "suggestion" && (
+            <button className="unfollow-btn">Abonné</button>
+          )}
+          {type === "card" && (
+            <img src="./img/icons/checked.svg" alt="checked" />
+          )}
         </span>
       )}
       {isFollowed === false && !isEmpty(userData) && (
         <span onClick={handleFollow}>
-          {type === "suggestion" && <button className="follow-btn">Suivre</button>}
-          {type === "card" && <img src="./img/icons/check.svg" alt="check"/>}
+          {type === "suggestion" && (
+            <button className="follow-btn">Suivre</button>
+          )}
+          {type === "card" && <img src="./img/icons/check.svg" alt="check" />}
         </span>
       )}
     </>

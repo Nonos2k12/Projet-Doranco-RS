@@ -29,6 +29,7 @@ export default function userReducer(state = initialState, action) {
         following: [action.payload.idToFollow, ...state.following],
       };
     case UNFOLLOW_USER:
+      // Ici on retourne un tableau d'id moins l'id correspondant à idToUnfollow si il existe.
       return {
         ...state,
         following: state.following.filter(

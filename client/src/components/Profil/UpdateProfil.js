@@ -74,6 +74,7 @@ const UpdateProfil = () => {
             </span>
             <ul>
               {usersData.map((user) => {
+                // On teste tous nos utilisateurs et si leur id correspond à un id présent dans le tableau followers on le retourne sous forme d'un <li>.
                 for (let i = 0; i < userData.followers.length; i++) {
                   if (user._id === userData.followers[i]) {
                     return (
@@ -105,6 +106,7 @@ const UpdateProfil = () => {
             </span>
             <ul>
               {usersData.map((user) => {
+                // On teste tous nos utilisateurs et si leur id correspond à un id présent dans le tableau following on le retourne sous forme d'un <li>.
                 for (let i = 0; i < userData.following.length; i++) {
                   if (user._id === userData.following[i]) {
                     return (
