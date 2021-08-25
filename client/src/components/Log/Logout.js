@@ -9,6 +9,7 @@ const Logout = () => {
     }
   };
 
+  // En cas de logout on supprime le cookie côté front.
   const deconnect = async () => {
     await axios({
       method: "get",
